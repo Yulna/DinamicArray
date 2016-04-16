@@ -1,4 +1,5 @@
-#include"DynArray.h"
+#include "Vector.h"
+
 int main(){
 
 	Vector<int> v;
