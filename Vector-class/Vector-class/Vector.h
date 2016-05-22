@@ -4,9 +4,15 @@
 #include <assert.h>
 
 #define BASE_CAPACITY 5
+template<class TYPE>
+void swap(TYPE& a, TYPE& b){
+	TYPE temp = a;
+	a = b;
+	b = temp;
+}
+
 
 template<class TYPE>
-
 class Vector{
 private:
 	TYPE* vector;
@@ -26,9 +32,12 @@ public:
 		capacity = otherclas.capacity;
 		num_elements = otherclas.num_elements;
 		vector = new TYPE[capacity];
-		for (unsigned int 0; i < num_elements; i++){
+		for (unsigned int i = 0; i < num_elements; i++){
 			vector[i] = otherclas.vector[i];
 		}
+	}
+	~Vector(){
+		delete[]vector;
 	}
 
 	//metode pushback, pushfront
@@ -72,7 +81,7 @@ public:
 	}
 
 	TYPE operator[](unsigned int index){
-		assert(index <= num_elements)
+		assert(index <= num_elements);
 			return	vector[index];
 	}
 
@@ -89,7 +98,7 @@ public:
 	unsigned int size(){
 		return num_elements;
 	}
-	unsigned int ret_capacity(){
+	unsigned int get_capacity(){
 		return capacity;
 	}
 
@@ -104,11 +113,33 @@ public:
 
 	void shrink_to_fit(){
 		capacity = num_elements;
-		vector = new TYPE[capacity];
+		vector = new TYPE[capacity];		//WHERE ARE THE VALUES???
 	}
 
-	~Vector(){
-		delete[]vector;
+	//Bubble sort
+	int bubblesort(){
+		int ret=0;
+		bool on = true;
+		int gap = num_elements-1;
+		while (on){
+			on = false;
+			gap = gap*0.3;
+			for (int i = 0; i < num_elements-1; i+=gap){
+				ret++;
+				if (vector[i] > vector[i + 1]){
+					swap(vector[i], vector[i + 1]);
+					if (gap <= 1)
+						on = true;
+				}
+			}
+
+		}
+		return ret;
 	}
+
 };
+
+
+
+
 #endif
